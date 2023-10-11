@@ -1,8 +1,6 @@
 use std::io;
 use rand::{thread_rng, Rng};
 
-
-
 fn main() {
     let alphabet: String = get_alphabet();
     let alphabet_length = alphabet.len();
