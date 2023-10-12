@@ -2,7 +2,11 @@ use std::io;
 use rand::{thread_rng, Rng};
 
 fn main() {
-    let alphabet: String = get_alphabet();
+    let with_digits = with_digits();
+    let with_letters = with_letters();
+    let with_symbols = with_symbols();
+
+    let alphabet: String = get_alphabet(with_digits, with_letters, with_symbols);
     let alphabet_length = alphabet.len();
 
     println!("Enter the number of passwords:");
@@ -44,23 +48,65 @@ fn main() {
     let _ = io::stdin().read_line(&mut String::with_capacity(0));
 }
 
-fn get_alphabet() -> String {
+fn with_digits() -> bool {
+    println!("With digits? (y/n)");
+
+    let mut with_digits = String::new();
+
+    io::stdin()
+        .read_line(&mut with_digits)
+        .expect("Error");
+
+    with_digits.trim().to_lowercase() == "y"
+}
+
+fn with_letters() -> bool {
+    println!("With letters? (y/n)");
+
+    let mut with_letters = String::new();
+
+    io::stdin()
+        .read_line(&mut with_letters)
+        .expect("Error");
+
+    with_letters.trim().to_lowercase() == "y"
+}
+
+fn with_symbols() -> bool {
+    println!("With symbols? (y/n)");
+
+    let mut with_symbols = String::new();
+
+    io::stdin()
+        .read_line(&mut with_symbols)
+        .expect("Error");
+
+    with_symbols.trim().to_lowercase() == "y"
+}
+
+fn get_alphabet(with_digits: bool, with_letters: bool, with_symbols: bool) -> String {
     let mut alphabet = String::new();
 
-    for c in '0'..='9' {
-        alphabet.push(c);
+    if with_digits {
+        for digit in '0'..='9' {
+            alphabet.push(digit);
+        }
     }
 
-    for c in 'A'..='Z' {
-        alphabet.push(c);
+    if with_letters {
+        for letter in 'a'..='z' {
+            alphabet.push(letter);
+        }
+
+        for letter in 'A'..='Z' {
+            alphabet.push(letter);
+        }
     }
 
-    for c in 'a'..='z' {
-        alphabet.push(c);
-    }
-
-    for c in '!'..='/' {
-        alphabet.push(c);
+    if with_symbols {
+        for symbol in '!'..='/' {
+            alphabet.push(symbol);
+        }
     }
 
     return alphabet;
