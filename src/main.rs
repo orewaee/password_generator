@@ -85,5 +85,5 @@ fn get_alphabet(with_digits: bool, with_letters: bool, with_symbols: bool) -> St
         }
     }
 
-    return alphabet;
+    alphabet
 }
