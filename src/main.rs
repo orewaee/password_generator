@@ -2,9 +2,9 @@ use std::io;
 use rand::{thread_rng, Rng};
 
 fn main() {
-    let with_digits = with_digits();
-    let with_letters = with_letters();
-    let with_symbols = with_symbols();
+    let with_digits = read_property("With digits? (y/n)");
+    let with_letters = read_property("With letters? (y/n)");
+    let with_symbols = read_property("With symbols? (y/n)");
 
     let alphabet: String = get_alphabet(with_digits, with_letters, with_symbols);
     let alphabet_length = alphabet.len();
@@ -48,40 +48,16 @@ fn main() {
     let _ = io::stdin().read_line(&mut String::with_capacity(0));
 }
 
-fn with_digits() -> bool {
-    println!("With digits? (y/n)");
+fn read_property(message: &str) -> bool {
+    println!("{}", message);
 
-    let mut with_digits = String::new();
-
-    io::stdin()
-        .read_line(&mut with_digits)
-        .expect("Error");
-
-    with_digits.trim().to_lowercase() == "y"
-}
-
-fn with_letters() -> bool {
-    println!("With letters? (y/n)");
-
-    let mut with_letters = String::new();
+    let mut property = String::new();
 
     io::stdin()
-        .read_line(&mut with_letters)
+        .read_line(&mut property)
         .expect("Error");
 
-    with_letters.trim().to_lowercase() == "y"
-}
-
-fn with_symbols() -> bool {
-    println!("With symbols? (y/n)");
-
-    let mut with_symbols = String::new();
-
-    io::stdin()
-        .read_line(&mut with_symbols)
-        .expect("Error");
-
-    with_symbols.trim().to_lowercase() == "y"
+    property.trim().to_lowercase() == "y"
 }
 
 fn get_alphabet(with_digits: bool, with_letters: bool, with_symbols: bool) -> String {
