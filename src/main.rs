@@ -9,27 +9,8 @@ fn main() {
     let alphabet: String = get_alphabet(with_digits, with_letters, with_symbols);
     let alphabet_length = alphabet.len();
 
-    println!("Enter the number of passwords:");
-    let mut quantity = String::new();
-
-    io::stdin()
-        .read_line(&mut quantity)
-        .expect("Error");
-
-    let quantity: usize = quantity
-        .trim().parse()
-        .expect("Error");
-
-    println!("Enter password length:");
-    let mut length = String::new();
-
-    io::stdin()
-        .read_line(&mut length)
-        .expect("Error");
-
-    let length: usize = length
-        .trim().parse()
-        .expect("Error");
+    let quantity = read_number("Enter the number of passwords:");
+    let length = read_number("Enter password length:");
 
     println!();
 
@@ -58,6 +39,22 @@ fn read_property(message: &str) -> bool {
         .expect("Error");
 
     property.trim().to_lowercase() == "y"
+}
+
+fn read_number(message: &str) -> usize {
+    println!("{}", message);
+
+    let mut number = String::new();
+
+    io::stdin()
+        .read_line(&mut number)
+        .expect("Error");
+
+    let number: usize = number
+        .trim().parse()
+        .expect("Error");
+
+    number
 }
 
 fn get_alphabet(with_digits: bool, with_letters: bool, with_symbols: bool) -> String {
