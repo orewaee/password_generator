@@ -2,11 +2,28 @@ use std::io;
 use rand::{thread_rng, Rng};
 
 fn main() {
-    let with_digits = read_property("With digits? (y/n)");
-    let with_letters = read_property("With letters? (y/n)");
-    let with_symbols = read_property("With symbols? (y/n)");
+    let custom_alphabet = read_property("Custom alphabet? (y/n)");
 
-    let alphabet: String = get_alphabet(with_digits, with_letters, with_symbols);
+    let alphabet: String;
+
+    if custom_alphabet {
+        println!("Input alphabet:");
+
+        let mut value = String::new();
+
+        io::stdin()
+            .read_line(&mut value)
+            .expect("Error");
+
+        alphabet = value.trim().to_owned();
+    } else {
+        let with_digits = read_property("With digits? (y/n)");
+        let with_letters = read_property("With letters? (y/n)");
+        let with_symbols = read_property("With symbols? (y/n)");
+
+        alphabet = get_alphabet(with_digits, with_letters, with_symbols);
+    }
+
     let alphabet_length = alphabet.len();
 
     let quantity = read_number("Enter the number of passwords:");
